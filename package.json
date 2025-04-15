@@ -1,0 +1,107 @@
+{
+  "name": "omcph",
+  "version": "0.1.0",
+  "description": "An embeddable Model Context Protocol (MCP) client host for managing connections to multiple MCP servers.",
+  "license": "MIT",
+  "author": "lefrog-dont-code",
+  "homepage": "https://github.com/lefrog-dont-code/omcph#readme",
+  "bugs": {
+    "url": "https://github.com/lefrog-dont-code/omcph/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lefrog-dont-code/omcph.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "omcph-api-server": "./dist/esm/api/api-server.js"
+  },
+  "keywords": [
+    "modelcontextprotocol",
+    "mcp",
+    "ai",
+    "llm",
+    "agent",
+    "tools",
+    "client",
+    "host"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/lib/index.d.ts",
+        "default": "./dist/esm/lib/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/lib/index.d.ts",
+        "default": "./dist/cjs/lib/index.js"
+      }
+    },
+    "./api-server": {
+      "import": {
+        "types": "./dist/esm/api/api-server.d.ts",
+        "default": "./dist/esm/api/api-server.js"
+      },
+      "require": {
+        "types": "./dist/cjs/api/api-server.d.ts",
+        "default": "./dist/cjs/api/api-server.js"
+      }
+    }
+  },
+  "main": "./dist/cjs/lib/index.js",
+  "module": "./dist/esm/lib/index.js",
+  "types": "./dist/esm/lib/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build:esm": "tsc -p tsconfig.prod.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "lint": "eslint src/",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:env": "jest --showConfig",
+    "dev": "tsc -p tsconfig.prod.json --watch",
+    "prepack": "npm run build",
+    "start:api": "node dist/esm/api-server.js",
+    "dev:api": "NODE_ENV=development node --watch --loader ts-node/esm src/api-server.ts",
+    "prestart:api": "npm run build",
+    "getdocs": "node scripts/fetch-docs.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "helmet": "^8.1.0",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^18.0.0",
+    "@types/supertest": "^6.0.3",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.1.0",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": "^1.9.0"
+  },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/sdk": {
+      "optional": false
+    }
+  }
+}

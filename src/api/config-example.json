@@ -1,0 +1,35 @@
+{
+  "hostInfo": {
+    "name": "OMCPH API Host",
+    "version": "0.1.0"
+  },
+  "hostCapabilities": {
+    "sampling": {},
+    "roots": { "listChanged": true }
+  },
+  "servers": [
+    {
+      "id": "filesystem",
+      "name": "Filesystem Server",
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/files"
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Tools Server",
+      "transport": "websocket",
+      "url": "ws://localhost:3001/mcp"
+    },
+    {
+      "id": "remote-api",
+      "name": "Remote API Server",
+      "transport": "sse",
+      "url": "https://example.com/mcp/sse"
+    }
+  ]
+}
