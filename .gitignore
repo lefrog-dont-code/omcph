@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tsbuildinfo
+
+.env
+
+MCP-diff.md
+.repomixignore
+repomix-output.xml
+
+docs/MCP-full.md
+scripts/
